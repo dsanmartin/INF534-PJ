@@ -1,2 +1,3 @@
-# INF534-PJ
-Advanced Applied Parallel Programming project 
+# INF-534 Advanced Applied Parallel Programming
+## Final Project
+### Pipeline approach for Cellular Automaton
