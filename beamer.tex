@@ -1,7 +1,7 @@
 \documentclass{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[notocbib]{apacite}
-\usepackage{graphicx, amsmath, algorithm, tikz, algpseudocode}%, algcompatible}% algorithmic}
+\usepackage{graphicx, amsmath, algorithm, tikz, algpseudocode, subcaption}%, algcompatible}% algorithmic}
 \usepackage{hyperref}
 
 \usetheme{Warsaw}
@@ -61,12 +61,33 @@
         \begin{itemize}
           \item<1-> Wildfires are one of the most harmful phenomena in Chile.
           \item<2-> Fires may start by varied reasons, ranging from reckless human behavior to extreme weather 
-              and environmental conditions.
-          \item<3-> Around $50000$ hectares are burnt yearly, and in certain occasions up to $100000$ 
-              hectares \cite{fireCONAF}.
-          \item<4-> Fire spreading dynamics has gathered large attention from the scientific community.
-          \item<5-> Wildfires are modelled using continuous or discrete models, or a combination of both.
+              and environmental conditions.          
         \end{itemize}
+        \begin{figure}
+          \centering
+          \includegraphics<3->[width=0.5\textwidth]{figures/wildfire.jpg}
+          \label{fig:wildfire}
+        \end{figure}
+      \end{frame}
+
+      \begin{frame}{Introduction}
+        \begin{itemize}
+          \item<1-> Around $50000$ hectares are burnt yearly, and in certain occasions up to $100000$ 
+              hectares \cite{fireCONAF}.
+          \item<2-> Fire spreading dynamics has gathered large attention from the scientific community.
+          \item<3-> Wildfires are modelled using continuous or discrete models, or a combination of both.
+        \end{itemize}
+          \begin{figure}
+          \centering
+          \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics<4->[width=.6\linewidth]{figures/model-1.jpg}
+          \end{subfigure}%
+          \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics<4->[width=.5\linewidth]{figures/model-2.jpg}
+          \end{subfigure}
+        \end{figure}
       \end{frame}
 
    
@@ -75,7 +96,7 @@
       
       \begin{frame}{Formalization}
         \begin{block}{Problem}
-          To build a suitable model to be incorporated into a video-game-based 
+          Build a suitable model to be incorporated into a video-game-based 
           simulator to allow assessment of decision making during wildfire combat 
           involving different agencies which are part of the response system in Chile.
         \end{block}
@@ -103,7 +124,7 @@
               \item<3-> Relative humidity has an inversely effect over fire spreading.
               \item<4-> Pressure has an inversely effect over fire spreading.
             \end{itemize}
-          \item<5-> \textbf{Forest fuels}: all the vegetation elements, woody or herbaceous, 
+          \item<5-> \textbf{Forest fuels}: All the vegetation elements, woody or herbaceous, 
             alive or dead that may be flammable.
           \item<6-> \textbf{Topography}: It influences over the two above factors, the fuel and weather,
             modifying or altering them.
@@ -131,7 +152,22 @@
       \begin{frame}{Solution}
         $DW$ is a discretized world that contains states $S$, temperature $T$, humidity $H$, wind speed $W_s$ 
         and direction $W_d$, fuel $C$ and the probability threshold of change from state $a$ to $b$ $F_{ab}$. 
-        All this variables are matrices with values between $0$ to $1$. Formally, we define the transition as
+        All this variables are matrices with values between $0$ to $1$. 
+      \end{frame}
+
+      \begin{frame}{Solution}
+        \begin{figure}
+          \centering
+          \resizebox{0.5\textwidth}{!}{
+            \input{figures/discrete_world.tex}
+          }    
+          \caption{Discrete World ($DW$).}
+          \label{fig:discrete_world}
+        \end{figure}
+      \end{frame}
+
+      \begin{frame}{Solution}
+        Formally, we define the transition as
         \begin{equation}
           S_{i,j}^{t+1} =
           \begin{cases}
@@ -140,6 +176,7 @@
             3, & \text{if} ~ S_{i,j}^{t} = 2 ~ \text{and} ~ f_{23} \leq F_{23} \\
             4, & \text{if} ~ S_{i,j}^{t} = 3 ~ \text{and} ~ f_{24} \leq F_{24}
           \end{cases},
+          \label{eq:transition_rule}
         \end{equation}
         where functions $f$ are defined by
       \end{frame}
@@ -150,33 +187,22 @@
             \begin{itemize}
               \item The environmental factors $E$:
                 \begin{equation}
-                  E = \frac{a ~ C ~ T ~ W_s}{H ~ P}.
+                  E_{i,j} = \frac{W_{d_{i,j}} ~ C_{i,j} ~ T_{i,j} ~ W_{s_{i,j}}}{H_{i,j} ~ P_{i,j}}.
                 \end{equation}
               \item The burning states of neighborhood $p(N_b)$:
                 \begin{equation}
-                  p(N_b) = \frac{N_b}{8},
+                  p(N_b)_{i,j} = \frac{N_b}{8},
                 \end{equation}
                 where $N_b$ is the number of burning state neighboring cells.
             \end{itemize}
             Then, $f_{12}$ is computed by
             \begin{equation}
-              f_{12} = \alpha ~ E + \beta ~ p(N_b).
+              f_{12} = \alpha ~ E_{i,j} + \beta ~ p(N_b)_{i,j}.
             \end{equation}
           \item Functions $f_{23}, f_{24}, f_{42}$ are random values between $0$ and $1$ 
             and $F_{23}, F_{24}, F_{42}$ are threshold parameters.
         \end{itemize}
-      \end{frame}
-      
-      \begin{frame}{Solution}
-        \begin{figure}
-          \centering
-          \resizebox{0.5\textwidth}{!}{
-            \input{figures/discrete_world.tex}
-          }    
-          \caption{Discrete World.}
-          \label{fig:discrete_world}
-        \end{figure}
-      \end{frame}
+      \end{frame}            
           
       \begin{frame}{Solution}
         \begin{itemize}
@@ -207,19 +233,19 @@
           \footnotesize
           \begin{algorithmic}
             \Procedure{spreading}{$S^t, DW$}
-              \State{$N \gets$ number of columns in $DW$.}
+              \State{$N \gets$ number of rows in $DW$}
               \For{$i=0$ to $N_{threads}-1$}
                 \State{$delta \gets N / N_{threads}$}
                 \State{$start \gets i\cdot delta$}
                 \If{$i = N_{threads}-1$}
-                    \State{$end \gets$ number of rows in $DW$.}
+                    \State{$end \gets$ $N$}
                 \Else
                     \State{$end \gets (i+1)\cdot delta$}
                 \EndIf
                 \State{$S \gets subSpreading(start, end, S^t, DW)$}
               \EndFor
               \For{$i=0$ to $N_{threads}-1$}
-                \State{Thread's join.}
+                \State{Thread's join}
               \EndFor
               \State{\textbf{return} $S$}
             \EndProcedure
@@ -236,7 +262,7 @@
               \State{$N \gets$ number of columns in $DW$.}
               \For{$i=start$ to  $end$}
                 \For{$j=0$ to $N$}
-                  \State{Compute $S_{i,j}^t$ using equation \ref{eq:transition_rule} with $S^t$ and $DW$.}
+                  \State{Compute $S_{i,j}^t$ using equation (\ref{eq:transition_rule}) with $S^t$ and $DW$.}
                 \EndFor
               \EndFor
               \State{\textbf{return} $S_{i,j}^t$}
@@ -328,8 +354,13 @@
       \subsection{Validation/Discussion}
         \begin{frame}{Validation/Discussion}
           \begin{itemize}
-            \item<1-> The wildfire dynamics generated with the prototypes are consistent with what 
-              CONAF has observed in past devastating wildfires occurring in Chile
+            \item<1-> There are different fire propagation models, but each one depends on the 
+              conditions of each study place.
+            \item<2-> The wildfire dynamics generated with the prototypes are consistent with what 
+              CONAF has observed in past devastating wildfires occurring in Chile.
+            \item<3-> The main problem with wildfire models based on differential equations is the 
+              computational cost associated with the resolution of the system of equations.
+            \item<4-> The complexity of the models is related to the realism and dynamism they have.
           \end{itemize}
         \end{frame}
       

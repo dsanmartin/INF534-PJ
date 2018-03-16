@@ -790,8 +790,7 @@
                 \begin{split}
                     S_{i,j}^{t+1} = F(S_{i,j}^t,S_{i,j+1}^t, S_{i+1,j+1}^t,S_{i+1,j}^t, S_{i+1,j-1}^t, S_{i,j-1}^t, \\ \nonumber
                     S_{i,j-1}^t, S_{i-1,j-1}^t, S_{i-1,j}^t, S_{i-1,j+1}^t, T, H, W_s, W_d, F_{ab})
-                \end{split}
-                \label{eq:transition_rule}
+                \end{split}                
             \end{equation}
             
             where $T$ is the temperature, $H$ the humidity, $W_s$ the speed and $W_d$ direction of wind, $F_{ab}$ the 
@@ -809,6 +808,7 @@
                     3, & \text{if} ~ S_{i,j}^{t} = 2 ~ \text{and} ~ f_{23} \leq F_{23} \\
                     4, & \text{if} ~ S_{i,j}^{t} = 3 ~ \text{and} ~ f_{24} \leq F_{24}
                 \end{cases},
+                \label{eq:transition_rule}
             \end{equation}
             
             where the functions $f$ are determined by the following equations:
@@ -894,7 +894,7 @@
         \begin{algorithm}[!ht]
             \begin{algorithmic}
                 \Procedure{spreading}{$S^t, DW$}
-                    \State{$N \gets$ number of columns in $DW$.}
+                    \State{$N \gets$ number of rows in $DW$.}
                     \For{$i=0$ to $N_{threads}-1$}
                         \State{$delta \gets N / N_{threads}$}
                         \State{$start \gets i\cdot delta$}
@@ -923,7 +923,7 @@
                     \State{$N \gets$ number of columns in $DW$.}
                     \For{$i=start$ to  $end$}
                         \For{$j=0$ to $N$}
-                            \State{Compute $S_{i,j}^t$ using equation \ref{eq:transition_rule} with $S^t$ and $DW$.}
+                            \State{Compute $S_{i,j}^t$ using equation (\ref{eq:transition_rule}) with $S^t$ and $DW$.}
                         \EndFor
                     \EndFor
                     \State{\textbf{return} $S_{i,j}^t$}
@@ -939,7 +939,7 @@
             \centering
             %\includegraphics{}
             \resizebox{\columnwidth}{!}{
-                \input{img/thread_model.tex}
+                \input{figures/thread_model.tex}
             }    
             \caption{\emph{SubSpreading} computing a matrix block.}
             \label{fig:thread}
@@ -979,7 +979,7 @@
     
     \begin{figure}[!ht]
         \centering
-        \includegraphics[width=3in,height=3in,clip,keepaspectratio]{img/benchmark.pdf}
+        \includegraphics[width=3in,height=3in,clip,keepaspectratio]{figures/benchmark.pdf}
         \caption{Threads' performance comparison}
         \label{fig:benchmark}
     \end{figure}
@@ -1013,7 +1013,7 @@
     
     \begin{figure}[!ht]
         \centering
-        \includegraphics[width=3in,height=3in,clip,keepaspectratio]{img/simulation_gray.png}
+        \includegraphics[width=3in,height=3in,clip,keepaspectratio]{figures/simulation_gray.png}
         \caption{Simulation's qualitative result.}
         \label{fig:simulation}
     \end{figure}
