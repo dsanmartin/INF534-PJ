@@ -1,3 +1,3 @@
 # INF-534 Advanced Applied Parallel Programming
 ## Final Project
-### Pipeline approach for Cellular Automaton
+### Wildfire Spreading Model using a Parallel Implementation of Cellular Automata
