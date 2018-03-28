@@ -1,4 +1,4 @@
-NAME  = beamer
+NAME = main
 
 document: clean
 	pdflatex $(NAME).tex

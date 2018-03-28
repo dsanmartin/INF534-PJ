@@ -64,7 +64,7 @@
 % draft mode.
 %
 \documentclass[conference]{IEEEtran}
-\usepackage{graphicx, amsmath, algorithm, tikz, algpseudocode}%, algorithmic}
+\usepackage{graphicx, algorithm, tikz, algpseudocode}%, algorithmic}
 % Add the compsoc option for Computer Society conferences.
 %
 % If IEEEtran.cls has not been installed into the LaTeX system files,
@@ -171,7 +171,7 @@
 
 % *** MATH PACKAGES ***
 %
-%\usepackage[cmex10]{amsmath}
+\usepackage[cmex10]{amsmath}
 % A popular package from the American Mathematical Society that provides
 % many useful and powerful commands for dealing with mathematics. If using
 % it, be sure to load this package with the cmex10 option to ensure that
@@ -350,93 +350,89 @@
 
 
 \begin{document}
-%
-% paper title
-% can use linebreaks \\ within to get better formatting as desired
-\title{Wildfire Spreading Model using a Parallel Implementation of Cellular Automata}
-%\title{Designing a Simulator for Wildfire Spreading based in Cellular Automata} 
-%\title{A Wildfire Model based in Cellular Automata }
+  %
+  % paper title
+  % can use linebreaks \\ within to get better formatting as desired
+  \title{Wildfire Spreading Model using a Parallel Implementation of Cellular Automata}
 
+  %author names and affiliations
+  %use a multiple column layout for up to three different
+  %affiliations
+  % \author{\IEEEauthorblockN{Michael Shell}
+  % \IEEEauthorblockA{School of Electrical and\\Computer Engineering\\
+  % Georgia Institute of Technology\\
+  % Atlanta, Georgia 30332--0250\\
+  % Email: http://www.michaelshell.org/contact.html}
+  % \and
+  % \IEEEauthorblockN{Homer Simpson}
+  % \IEEEauthorblockA{Twentieth Century Fox\\
+  % Springfield, USA\\
+  % Email: homer@thesimpsons.com}
+  % \and
+  % \IEEEauthorblockN{James Kirk\\ and Montgomery Scott}
+  % \IEEEauthorblockA{Starfleet Academy\\
+  % San Francisco, California 96678-2391\\
+  % Telephone: (800) 555--1212\\
+  % Fax: (888) 555--1212}}
 
-%author names and affiliations
-%use a multiple column layout for up to three different
-%affiliations
-% \author{\IEEEauthorblockN{Michael Shell}
-% \IEEEauthorblockA{School of Electrical and\\Computer Engineering\\
-% Georgia Institute of Technology\\
-% Atlanta, Georgia 30332--0250\\
-% Email: http://www.michaelshell.org/contact.html}
-% \and
-% \IEEEauthorblockN{Homer Simpson}
-% \IEEEauthorblockA{Twentieth Century Fox\\
-% Springfield, USA\\
-% Email: homer@thesimpsons.com}
-% \and
-% \IEEEauthorblockN{James Kirk\\ and Montgomery Scott}
-% \IEEEauthorblockA{Starfleet Academy\\
-% San Francisco, California 96678-2391\\
-% Telephone: (800) 555--1212\\
-% Fax: (888) 555--1212}}
-
-\author{
+  \author{
+    \IEEEauthorblockN{Daniel San Martín}
+    \IEEEauthorblockA{Departamento de Informática\\
+    Universidad Técnica Federico Santa María, \\ Valparaíso, Chile\\ daniel.sanmartinr@usm.cl}
+    \and
     \IEEEauthorblockN{Roberto G. Aldunate}
     \IEEEauthorblockA{College of Applied Health Sciences\\
     University of Illinois at Urbana–Champaign, \\ Champaign, USA\\ aldunate@illinois.edu}
-    \and
-    \IEEEauthorblockN{Daniel San Martín}
-    \IEEEauthorblockA{Departamento de Informática\\
-    Universidad Técnica Federico Santa María, \\ Valparaíso, Chile\\ daniel.sanmartinr@sansano.usm.cl}
-}
+  }
 
-% \author{\IEEEauthorblockN{Michael Shell}
-% \IEEEauthorblockA{School of Electrical and\\Computer Engineering\\
-% Georgia Institute of Technology\\
-% Atlanta, Georgia 30332--0250\\
-% Email: http://www.michaelshell.org/contact.html}
-% \and
-% \IEEEauthorblockN{Homer Simpson}
-% \IEEEauthorblockA{Twentieth Century Fox\\
-% Springfield, USA\\
-% Email: homer@thesimpsons.com}
+  % \author{\IEEEauthorblockN{Michael Shell}
+  % \IEEEauthorblockA{School of Electrical and\\Computer Engineering\\
+  % Georgia Institute of Technology\\
+  % Atlanta, Georgia 30332--0250\\
+  % Email: http://www.michaelshell.org/contact.html}
+  % \and
+  % \IEEEauthorblockN{Homer Simpson}
+  % \IEEEauthorblockA{Twentieth Century Fox\\
+  % Springfield, USA\\
+  % Email: homer@thesimpsons.com}
 
-% conference papers do not typically use \thanks and this command
-% is locked out in conference mode. If really needed, such as for
-% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
-% after \documentclass
+  % conference papers do not typically use \thanks and this command
+  % is locked out in conference mode. If really needed, such as for
+  % the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+  % after \documentclass
 
-% for over three affiliations, or if they all won't fit within the width
-% of the page, use this alternative format:
-% 
-%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
-%Homer Simpson\IEEEauthorrefmark{2},
-%James Kirk\IEEEauthorrefmark{3}, 
-%Montgomery Scott\IEEEauthorrefmark{3} and
-%Eldon Tyrell\IEEEauthorrefmark{4}}
-%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
-%Georgia Institute of Technology,
-%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
-%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
-%Email: homer@thesimpsons.com}
-%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
-%Telephone: (800) 555--1212, Fax: (888) 555--1212}
-%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+  % for over three affiliations, or if they all won't fit within the width
+  % of the page, use this alternative format:
+  % 
+  %\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+  %Homer Simpson\IEEEauthorrefmark{2},
+  %James Kirk\IEEEauthorrefmark{3}, 
+  %Montgomery Scott\IEEEauthorrefmark{3} and
+  %Eldon Tyrell\IEEEauthorrefmark{4}}
+  %\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+  %Georgia Institute of Technology,
+  %Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+  %\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+  %Email: homer@thesimpsons.com}
+  %\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+  %Telephone: (800) 555--1212, Fax: (888) 555--1212}
+  %\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
 
 
 
 
-% use for special paper notices
-%\IEEEspecialpapernotice{(Invited Paper)}
+  % use for special paper notices
+  %\IEEEspecialpapernotice{(Invited Paper)}
 
 
 
 
-% make the title area
-\maketitle
+  % make the title area
+  \maketitle
 
 
-\begin{abstract}
-%\boldmath
-%\blindtext[1]
+  \begin{abstract}
+    \boldmath
     Wildfires may have devastating social and economic impact in our societies, destroying thousands of 
     forest hectares that also dramatically damage the ecosystems. There is a pressing need to better understand, 
     framed in disaster response decision making, and control wildfires in different geographical areas. There 
@@ -445,34 +441,36 @@
     and rehearse responses to wildfire propagation dynamics. This work presents a Cellular Automata-based 
     model incorporated into a simulator built for the Chilean forest protection agency (CONAF), which is implemented 
     as a service for a video game-based simulator. Results include very encouraging evaluation from the Chilean 
-    forest agency, while conclusions highlight that video game technology is extremely appropriate to implement 
-    and evaluate wildfire’s dynamics on varying environments.
-\end{abstract}
-% IEEEtran.cls defaults to using nonbold math in the Abstract.
-% This preserves the distinction between vectors and scalars. However,
-% if the journal you are submitting to favors bold math in the abstract,
-% then you can use LaTeX's standard command \boldmath at the very start
-% of the abstract to achieve this. Many IEEE journals frown on math
-% in the abstract anyway.
+    forest agency, both for the dynamics shown by the model but also for the realistic experience thanks to the
+    implementation of the simulator.
+    %while conclusions highlight that video game technology is extremely appropriate to implement 
+    %and evaluate wildfire’s dynamics on varying environments.
+  \end{abstract}
+  % IEEEtran.cls defaults to using nonbold math in the Abstract.
+  % This preserves the distinction between vectors and scalars. However,
+  % if the journal you are submitting to favors bold math in the abstract,
+  % then you can use LaTeX's standard command \boldmath at the very start
+  % of the abstract to achieve this. Many IEEE journals frown on math
+  % in the abstract anyway.
 
-% Note that keywords are not normally used for peerreview papers.
-\begin{IEEEkeywords}
+  % Note that keywords are not normally used for peerreview papers.
+  \begin{IEEEkeywords}
     Wildfire, Cellular Automata, Parallel Programming.
-\end{IEEEkeywords}
+  \end{IEEEkeywords}
 
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
-\IEEEpeerreviewmaketitle
+  % For peer review papers, you can put extra information on the cover
+  % page as needed:
+  % \ifCLASSOPTIONpeerreview
+  % \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+  % \fi
+  %
+  % For peerreview papers, this IEEEtran command inserts a page break and
+  % creates the second title. It will be ignored for other modes.
+  \IEEEpeerreviewmaketitle
 
 
-
-\section{Introduction}
+  % INTRODUCTION
+  \section{Introduction}
     % The Fire Spreading is one of the most harmful phenomena in Chile, burning thousands of forest hectares, 
     % destroying the flora and fauna, affecting the air, the water cycles and the ecosystem present in this places. 
     % These damages generate economics, environmental and social losses that are fighting by 2 protection systems, 
@@ -544,13 +542,14 @@
     to model wildfire dynamics. 
     
     This research effort is part of a research project titled ``Serious video games to improve decision making for 
-    disaster response systems'' \cite{aldunate} funded by Chile’s national science foundation. The research presented in this 
-    article uses discrete modeling because of the possibility to easily incorporate lower level details about 
+    disaster response systems'' \cite{aldunate} funded by Chile’s national science foundation. The research presented 
+    in this article uses discrete modeling because of the possibility to easily incorporate lower level details about 
     geographically dependent features, such as flora, water areas, and location-based responses or fire combat, 
     and fine granularity to incorporate dynamic interplay among temperature, humidity, and wind characteristics.
     While there is significant consensus on modelling core components of wildfire propagation models, such as 
     terrain characteristics, fuel type, meteorological conditions, statistical past patterns, the dynamic interaction 
-    between temperature, humidity, pressure, and wind characteristics are usually an elusive component in most modelling efforts. 
+    between temperature, humidity, pressure, and wind characteristics are usually an elusive component in most 
+    modelling efforts. 
     
     The goal for this research initiative is to build a suitable model to be incorporated into a video-game-based 
     simulator to allow assessment of decision making during wildfire combat involving different agencies which are 
@@ -563,95 +562,95 @@
     propagation dynamics through parameters such as wind speed and direction, temperature, and humidity as well as 
     through changes in transition functions in the cellular automata.
 
-%\subsection{Subsection Heading Here}
-%\blindtext
+    %\subsection{Subsection Heading Here}
+    %\blindtext
 
-% needed in second column of first page if using \IEEEpubid
-%\IEEEpubidadjcol
+    % needed in second column of first page if using \IEEEpubid
+    %\IEEEpubidadjcol
 
-% An example of a floating figure using the graphicx package.
-% Note that \label must occur AFTER (or within) \caption.
-% For figures, \caption should occur after the \includegraphics.
-% Note that IEEEtran v1.7 and later has special internal code that
-% is designed to preserve the operation of \label within \caption
-% even when the captionsoff option is in effect. However, because
-% of issues like this, it may be the safest practice to put all your
-% \label just after \caption rather than within \caption{}.
-%
-% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
-% option should be used if it is desired that the figures are to be
-% displayed while in draft mode.
-%
-%\begin{figure}[!t]
-%\centering
-%\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-%\caption{Simulation Results}
-%\label{fig_sim}
-%\end{figure}
+    % An example of a floating figure using the graphicx package.
+    % Note that \label must occur AFTER (or within) \caption.
+    % For figures, \caption should occur after the \includegraphics.
+    % Note that IEEEtran v1.7 and later has special internal code that
+    % is designed to preserve the operation of \label within \caption
+    % even when the captionsoff option is in effect. However, because
+    % of issues like this, it may be the safest practice to put all your
+    % \label just after \caption rather than within \caption{}.
+    %
+    % Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+    % option should be used if it is desired that the figures are to be
+    % displayed while in draft mode.
+    %
+    %\begin{figure}[!t]
+    %\centering
+    %\includegraphics[width=2.5in]{myfigure}
+    % where an .eps filename suffix will be assumed under latex, 
+    % and a .pdf suffix will be assumed for pdflatex; or what has been declared
+    % via \DeclareGraphicsExtensions.
+    %\caption{Simulation Results}
+    %\label{fig_sim}
+    %\end{figure}
 
-% Note that IEEE typically puts floats only at the top, even when this
-% results in a large percentage of a column being occupied by floats.
-
-
-% An example of a double column floating figure using two subfigures.
-% (The subfig.sty package must be loaded for this to work.)
-% The subfigure \label commands are set within each subfloat command, the
-% \label for the overall figure must come after \caption.
-% \hfil must be used as a separator to get equal spacing.
-% The subfigure.sty package works much the same way, except \subfigure is
-% used instead of \subfloat.
-%
-%\begin{figure*}[!t]
-%\centerline{\subfloat[Case I]\includegraphics[width=2.5in]{subfigcase1}%
-%\label{fig_first_case}}
-%\hfil
-%\subfloat[Case II]{\includegraphics[width=2.5in]{subfigcase2}%
-%\label{fig_second_case}}}
-%\caption{Simulation results}
-%\label{fig_sim}
-%\end{figure*}
-%
-% Note that often IEEE papers with subfigures do not employ subfigure
-% captions (using the optional argument to \subfloat), but instead will
-% reference/describe all of them (a), (b), etc., within the main caption.
+    % Note that IEEE typically puts floats only at the top, even when this
+    % results in a large percentage of a column being occupied by floats.
 
 
-% An example of a floating table. Note that, for IEEE style tables, the 
-% \caption command should come BEFORE the table. Table text will default to
-% \footnotesize as IEEE normally uses this smaller font for tables.
-% The \label must come after \caption as always.
-%
-%\begin{table}[!t]
-%% increase table row spacing, adjust to taste
-%\renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
-%\caption{An Example of a Table}
-%\label{table_example}
-%\centering
-%% Some packages, such as MDW tools, offer better commands for making tables
-%% than the plain LaTeX2e tabular which is used here.
-%\begin{tabular}{|c||c|}
-%\hline
-%One & Two\\
-%\hline
-%Three & Four\\
-%\hline
-%\end{tabular}
-%\end{table}
+    % An example of a double column floating figure using two subfigures.
+    % (The subfig.sty package must be loaded for this to work.)
+    % The subfigure \label commands are set within each subfloat command, the
+    % \label for the overall figure must come after \caption.
+    % \hfil must be used as a separator to get equal spacing.
+    % The subfigure.sty package works much the same way, except \subfigure is
+    % used instead of \subfloat.
+    %
+    %\begin{figure*}[!t]
+    %\centerline{\subfloat[Case I]\includegraphics[width=2.5in]{subfigcase1}%
+    %\label{fig_first_case}}
+    %\hfil
+    %\subfloat[Case II]{\includegraphics[width=2.5in]{subfigcase2}%
+    %\label{fig_second_case}}}
+    %\caption{Simulation results}
+    %\label{fig_sim}
+    %\end{figure*}
+    %
+    % Note that often IEEE papers with subfigures do not employ subfigure
+    % captions (using the optional argument to \subfloat), but instead will
+    % reference/describe all of them (a), (b), etc., within the main caption.
 
 
-% Note that IEEE does not put floats in the very first column - or typically
-% anywhere on the first page for that matter. Also, in-text middle ("here")
-% positioning is not used. Most IEEE journals use top floats exclusively.
-% Note that, LaTeX2e, unlike IEEE journals, places footnotes above bottom
-% floats. This can be corrected via the \fnbelowfloat command of the
-% stfloats package.
+    % An example of a floating table. Note that, for IEEE style tables, the 
+    % \caption command should come BEFORE the table. Table text will default to
+    % \footnotesize as IEEE normally uses this smaller font for tables.
+    % The \label must come after \caption as always.
+    %
+    %\begin{table}[!t]
+    %% increase table row spacing, adjust to taste
+    %\renewcommand{\arraystretch}{1.3}
+    % if using array.sty, it might be a good idea to tweak the value of
+    % \extrarowheight as needed to properly center the text within the cells
+    %\caption{An Example of a Table}
+    %\label{table_example}
+    %\centering
+    %% Some packages, such as MDW tools, offer better commands for making tables
+    %% than the plain LaTeX2e tabular which is used here.
+    %\begin{tabular}{|c||c|}
+    %\hline
+    %One & Two\\
+    %\hline
+    %Three & Four\\
+    %\hline
+    %\end{tabular}
+    %\end{table}
 
-\section{Formalization}
+
+    % Note that IEEE does not put floats in the very first column - or typically
+    % anywhere on the first page for that matter. Also, in-text middle ("here")
+    % positioning is not used. Most IEEE journals use top floats exclusively.
+    % Note that, LaTeX2e, unlike IEEE journals, places footnotes above bottom
+    % floats. This can be corrected via the \fnbelowfloat command of the
+    % stfloats package.
+
+  \section{Formalization}
     
     %The aim of this work is to develop a tool capable to give the possibilty of tr
     %Given the nature of this phenomenon, it is necessary to have tools that support the study and control of fire. 
@@ -674,283 +673,280 @@
     disaster. It is clear that proposing a realistic experience allows a positive impact on the 
     decision-making processes and complements in an important way the classical techniques of 
     teaching and training in this area.
-
     
 
-\section{Solution}
+  \section{Solution}
 
     For the development of the simulator, the fire model was constructed using 
     environmental factors, forest fuel, topography and the cellular automata which interact and evolve in 
-    discrete time steps. Then, to include the dynamic component, it was necessary to enhance 
-    the computation of the model with parallel computing techniques. The elements involves in the
+    discrete time steps. Then, to include the dynamic component, it was necessary decomposing 
+    the computations in order to map tasks to threads. The elements involves in the
     development of the simulator are described in detail below.
 
-    %The main components used for our wildfire model are environmental factors, forest fuel,
-    %topography and the cellular automata. These elements are described in detail below.
     
-    
-    \subsection{Environmental factors}
+    \subsection{Weather}
         
-        The environmental factors are closely related with the fire propagation. The wind guides the fire’s direction, 
-        brings oxygen, and increases the speed of fire propagation, dried fuel and transports sparks. Temperature evaporates
-        the humidity from fuels, increasing the chances of to burn. If the relative humidity is low, the fuel is drier than 
-        the reverse case, it is therefore more flammable. There is not vertical movement of air masses when the atmospheric is
-        quiet, on the contrary with atmospheric instability there are strong wind current stimulating the fire spreading. \\
-        
-        Since we work in a discrete world, the environmental factors were discretized (values between $0$ and $1$) using the 
-        typical weather values in Chile. We can summarize the relations between the fire and environmental factors as: the 
-        temperature and wind have a direct and the humidity and pressure have an inversely effect to the fire spread speed. 
+      The weather elements are closely related with the fire propagation. The wind guides the fire’s direction, 
+      brings oxygen, and increases the speed of fire propagation, dried fuel and transports sparks. Temperature 
+      evaporates the humidity from fuels, increasing the chances of to burn. If the relative humidity is low, the 
+      fuel is drier than the reverse case, it is therefore more flammable. There is not vertical movement of air 
+      masses when the atmospheric is quiet, on the contrary with atmospheric instability there are strong wind 
+      current stimulating the fire spreading. 
+      
+      Since we work in a discrete world, the environmental factors were discretized using the typical weather values 
+      in Chile. We can summarize the relations between the fire and environmental factors as: the temperature and 
+      wind have a direct and the humidity and pressure have an inversely effect to the fire spread speed. 
 
     
     \subsection{Forest Fuel}
     
-        The forest fuel are all the vegetation elements, woody or herbaceous, alive or dead
-        that may be flammable. These elements are classified by: type, location, size, amount,
-        humidity, compression, continuity, and chemical content. A simple scalar
-        is used in the model to moderate the impact of this component of the probability for each cell of
-        the cellular automata to start and stop burning.
+      The forest fuel are all the vegetation elements, woody or herbaceous, alive or dead
+      that may be flammable. These elements are classified by: type, location, size, amount,
+      humidity, compression, continuity, and chemical content. A simple scalar
+      is used in the model to moderate the impact of this component of the probability for each cell of
+      the cellular automata to start and stop burning.
         
         
     \subsection{Topography}
     
-        The topography factor influences over the two above factors, the fuel and weather,
-        modifying or altering them. The fire dynamics may be affected by: (a) the slope; it
-        favors the rise of convection currents of warm air preheating fuels above, accelerating
-        the wildfire; (b) altitude: at higher altitudes, the temperature is cooler; there is greater
-        precipitation and snow reducing the amount of oxygen in the air; (c) exposure: affects
-        the behavior of wind and hot sun; (d) landform: affects wind patterns and temperature
-        in a given locality. At the present version of the model, this set of factors are modeled
-        with a single scalar that may reduce or magnify the chances for cells to start / stop
-        burning. Further versions of this work will include more elaborate versions of sub
-        models that will embrace the articulation of the topography factors. \\
-        
-        In addition, according to CONAF, there are 3 models for wildfire progression: (a)
-        circular: in this case, the terrain is flat, there is no wind presence and the fuel is
-        uniform; (b) oval: In this case, the land has a smooth slope, there is soft wind and the
-        fuel is heterogeneous; and (c) extended: The terrain is sloped, exist strong wind and
-        the fuel is heterogeneous. Most of the scenarios involved in this work were flat, the
-        type of wildfire progression was considered circular, in absence of wind and other
-        factors. Further work will include the impact of this element for scenarios that exhibit
-        these three types of wildfire progression.
+      The topography factor influences over the two above factors, the fuel and weather,
+      modifying or altering them. The fire dynamics may be affected by: (a) the slope; it
+      favors the rise of convection currents of warm air preheating fuels above, accelerating
+      the wildfire; (b) altitude: at higher altitudes, the temperature is cooler; there is greater
+      precipitation and snow reducing the amount of oxygen in the air; (c) exposure: affects
+      the behavior of wind and hot sun; (d) landform: affects wind patterns and temperature
+      in a given locality. %At the present version of the model, this set of factors are modeled
+      %with a single scalar that may reduce or magnify the chances for cells to start / stop
+      %burning. Further versions of this work will include more elaborate versions of sub
+      %models that will embrace the articulation of the topography factors. 
+      Further versions of this work will include more elaborate versions of sub
+      models that will embrace the articulation of the topography factors. 
+
+      In addition, according to CONAF, there are 3 models for wildfire progression: (a)
+      circular: in this case, the terrain is flat, there is no wind presence and the fuel is
+      uniform; (b) oval: In this case, the land has a smooth slope, there is soft wind and the
+      fuel is heterogeneous; and (c) extended: The terrain is sloped, exist strong wind and
+      the fuel is heterogeneous. Most of the scenarios involved in this work were flat, the
+      type of wildfire progression was considered circular, in absence of wind and other
+      factors. Further work will include the impact of this element for scenarios that exhibit
+      these three types of wildfire progression.
     
 
     \subsection{Cellular Automata}
     
-        John Von Neumann introduced the Cellular Automata (CA) in 1966, this appears as an alternative option to 
-        models that use partial differential equations (PDE) and satisfactory results have demonstrated in physics 
-        models \cite{toffoli1984cellular}. CA have been used to model complex systems \cite{wolfram1994cellular} 
-        and applied to some physics problems where local iterations are involved \cite{chopard1991cellular, 
-        gerhardt1989cellular}. The discrete nature of CA allows plenty of opportunity to include elements at local 
-        level that have the potential to achieve a suitable emerging solution for wildfire dynamics modeling. 
-        The main characteristics of the CA used in this work are as follows:
-        
-        \subsubsection{Spatial dimensions}
-        
-            The number of spatial dimensions gives the sense of simulation space. In this model, the simulation has 
-            two spatial dimensions, that is, the CA has cells in $(i,j)$ in a grid of size $M\times N$.
-            
-        \subsubsection{Neighborhood}
-        
-            This CA model use the Moore Neighborhood \cite{moorewolfram} that is a squared region used 
-            to define a set of cells around a cell $(i_0,j_0)$. The Moore neighborhood of range $r$ is defined by
-            \begin{equation}
-                N_{(i_0,j_0)}^M = \{(i,j): ~ |i-i_0|\leq r, ~ |j-j_0|\leq r \}.
-            \end{equation}
-            
-            The range used in this work was $r=1$.
+      John Von Neumann introduced the Cellular Automata (CA) in 1966, this appears as an alternative option to 
+      models that use partial differential equations (PDE) and satisfactory results have demonstrated in physics 
+      models \cite{toffoli1984cellular}. CA have been used to model complex systems \cite{wolfram1994cellular} 
+      and applied to some physics problems where local iterations are involved \cite{chopard1991cellular, 
+      gerhardt1989cellular}. The discrete nature of CA allows plenty of opportunity to include elements at local 
+      level that have the potential to achieve a suitable emerging solution for wildfire dynamics modeling. 
+      The main characteristics of the CA used in this work are as follows:
+      
+      \subsubsection{Spatial dimensions}
+      
+        The number of spatial dimensions gives the sense of simulation space. In this model, the simulation has 
+        two spatial dimensions, that is, the CA has cells in $(i,j)$ in a grid of size $M\times N$.
 
-            %This definition applied to the model with range $r=1$  is represented by Figure 1.
-            
-        \subsubsection{Cell states}
+          
+      \subsubsection{Neighborhood}
+      
+        This CA model use the Moore Neighborhood \cite{moorewolfram} that is a squared region used 
+        to define a set of cells around a cell $(i_0,j_0)$. The Moore neighborhood of range $r$ is defined by
+        \begin{equation}
+            N_{(i_0,j_0)}^M = \{(i,j): ~ |i-i_0|\leq r, ~ |j-j_0|\leq r \}.
+        \end{equation}
         
-            To represent the fire spreading phenomena applied to the CA theory is necessary to define the cell states. 
-            In this work we define: nonflammable = $0$; flammable = $1$; burning = $2$; burnt = $3$; extinguished = $4$.
-            
-            % \begin{table}[!ht]
-            %     \centering
-            %     \caption{CA states ($S_{i,i})$}
-            %     \begin{tabular}{|c|c|}
-            %         \hline
-            %         \textbf{State} & \textbf{Value}  \\ \hline
-            %         Nonflammable & 0 \\ \hline
-            %         Flammable & 1 \\ \hline
-            %         Burning & 2 \\ \hline
-            %         Burnt & 3 \\ \hline
-            %         Extinguished & 4 \\ \hline
-            %     \end{tabular}
-            %     \label{tab:CAstates}
-            % \end{table}
-            
+        The range used in this work was $r=1$.
+
+          
+      \subsubsection{Cell states}
+      
+        To represent the fire spreading phenomena applied to the CA theory is necessary to define the cell states. 
+        In this work we define: nonflammable = $0$, flammable = $1$, burning = $2$, burnt = $3$ and extinguished = $4$.
+          
+      
+      \subsubsection{Transition Rule}
+      
+        The transition rule computes the future value of the respective cells. For this model
+        the cell’s next state is computed as: 
+        \begin{equation}
+          \begin{split}
+            S_{i,j}^{t+1} = F(S_{i,j}^t,S_{i,j+1}^t, S_{i+1,j+1}^t,S_{i+1,j}^t, S_{i+1,j-1}^t, S_{i,j-1}^t, \\ \nonumber
+            S_{i,j-1}^t, S_{i-1,j-1}^t, S_{i-1,j}^t, S_{i-1,j+1}^t, T_{i,j}, H_{i,j}, Ws_{i,j}, Wd_{i,j}, F_{ab})
+          \end{split}                
+        \end{equation}
         
-        \subsubsection{Transition Rule}
+        where $T$ is the temperature, $H$ the humidity, $Ws$ the speed and $Wd$ direction of wind, $F_{ab}$ the 
+        probability of change from state $a$ to $b$. All these variables are matrices. \\
         
-            The transition rule computes the future value of the respective cells. For this case
-            the cell’s next state is computed as: 
-            \begin{equation}
-                \begin{split}
-                    S_{i,j}^{t+1} = F(S_{i,j}^t,S_{i,j+1}^t, S_{i+1,j+1}^t,S_{i+1,j}^t, S_{i+1,j-1}^t, S_{i,j-1}^t, \\ \nonumber
-                    S_{i,j-1}^t, S_{i-1,j-1}^t, S_{i-1,j}^t, S_{i-1,j+1}^t, T, H, W_s, W_d, F_{ab})
-                \end{split}                
-            \end{equation}
-            
-            where $T$ is the temperature, $H$ the humidity, $W_s$ the speed and $W_d$ direction of wind, $F_{ab}$ the 
-            probability of change from state $a$ to $b$. \\
-            
-            %To simulate the transition from a state to another the follow rules are proposed:
-            Formally, we propose the follow transition rule:
-            \begin{equation}
-                S_{i,j}^{t+1} =
-                \begin{cases}
-                    %0, ~ if ~ S_{i,j}^{t} = 0 \\
-                    %1, ~ if ~ S_{i,j}^{t} = 1 \\
-                    2, & \text{if} ~ S_{i,j}^{t} = 1 ~ \text{and} ~ f_{12} \geq F_{12} \\
-                    2, & \text{if} ~ S_{i,j}^{t} = 4 ~ \text{and} ~ f_{42} \leq F_{42} \\
-                    3, & \text{if} ~ S_{i,j}^{t} = 2 ~ \text{and} ~ f_{23} \leq F_{23} \\
-                    4, & \text{if} ~ S_{i,j}^{t} = 3 ~ \text{and} ~ f_{24} \leq F_{24}
-                \end{cases},
-                \label{eq:transition_rule}
-            \end{equation}
-            
-            where the functions $f$ are determined by the following equations:
-            
+        %To simulate the transition from a state to another the follow rules are proposed:
+        Formally, we propose the follow transition rule:
+        \begin{equation}
+            S_{i,j}^{t+1} =
+            \begin{cases}
+                %0, ~ if ~ S_{i,j}^{t} = 0 \\
+                %1, ~ if ~ S_{i,j}^{t} = 1 \\
+                2, & \text{if} ~ S_{i,j}^{t} = 1 ~ \text{and} ~ f_{12} \geq F_{12} \\
+                2, & \text{if} ~ S_{i,j}^{t} = 4 ~ \text{and} ~ f_{42} \leq F_{42} \\
+                3, & \text{if} ~ S_{i,j}^{t} = 2 ~ \text{and} ~ f_{23} \leq F_{23} \\
+                4, & \text{if} ~ S_{i,j}^{t} = 3 ~ \text{and} ~ f_{24} \leq F_{24}
+            \end{cases},
+            \label{eq:transition_rule}
+        \end{equation}
+        
+        where the functions $f$ are determined by the following equations:
+        
+        \begin{itemize}
+          \item Function $f_{12}$: represents the probability that a cell begin to burn and depend of:
             \begin{itemize}
-                \item Function $f_{12}$: represents the probability that a cell begin to burn and depend of:
-                    \begin{itemize}
-                        \item The environmental factors $E$, described before and represented by:
-                            \begin{equation}
-                                E = \frac{a \cdot T \cdot W_s}{H \cdot P},
-                            \end{equation}
-                            where $a$ is a factor that depends of wind direction. This factor is computed by
-                            \begin{equation}
-                                a = 
-                                \begin{cases}
-                                    1 & \text{if cell in the same direction} \\
-                                     & \text{of $W_d$ is burning.}\\
-                                    2/3 & \text{if contiguous cells in the same} \\
-                                     & \text{direction of $W_d$ are burning.} \\
-                                    1/3 & \text{otherwise.}
-                                \end{cases}
-                            \end{equation}
-                            
-                        \item Terrain fuel composition $c$ with $0\leq c\leq 1$.
-                        \item The burning states of neighborhood $p(N_b)$ defined by
-                            \begin{equation}
-                                p(N_b) = \frac{N_b}{8},
-                            \end{equation}
-                            where $N_b$ is the number of burning state neighboring cells.
-                        \end{itemize}
-                        Finally, $f_{12}$ is computed by
-                            \begin{equation}
-                                f_{12} = \alpha \cdot c\cdot E + \beta \cdot p(N_b).
-                            \end{equation}
-                            
-                            $\alpha$ and $\beta$ ($\alpha+\beta = 1$) is used to weight the effect of weather condition 
-                            and neighborhood respectively.
-                    
-                \item Function $f_{23}$: represents the probability that a cell ends up burning and is defined as random value between $0$ and $1$.
-                \item Function $f_{24}$: represents the probability that a cell is extinguished and is defined as random value between $0$ and $1$.
-                \item Function $f_{42}$: represents the probability that an extinct cell burns again and is defined as random value between $0$ and $1$.
+              \item The environmental factors $E$ a matrix with values:
+                \begin{equation}
+                  E_{i,j} = \frac{a ~ C_{i,j} ~ T_{i,j} ~ Ws_{i,j}}{H_{i,j} ~ P_{i,j}},
+                \end{equation}
+                where $a$ is a factor that depends of wind direction. This factor is computed by
+                \begin{equation}
+                  a = 
+                  \begin{cases}
+                    1 & \text{if cell in the same direction} \\
+                     & \text{of $Wd_{i,j}$ is burning.}\\
+                    2/3 & \text{if contiguous cells in the same} \\
+                     & \text{direction of $Wd_{i,j}$ are burning.} \\
+                    1/3 & \text{otherwise.}
+                  \end{cases},
+                \end{equation}
+                and $C_{i,j}$ is terrain fuel composition with values $0\leq C_{i,j}\leq 1$.
+              \item The burning states of neighborhood $p(N_b)$ defined by
+                \begin{equation}
+                    p(N_b)_{i,j} = \frac{N_b}{8},
+                \end{equation}
+                where $N_b$ is the number of burning state neighboring cells.
             \end{itemize}
-            
-            $F_{12}, F_{23}, F_{24}, F_{42}$ are threshold parameters defined through try and error with feedback from experts observing visual 
-            outcome representation of wildfire dynamics.
+            Finally, $f_{12}$ is computed by
+            \begin{equation}
+                f_{12} = \alpha ~ E_{i,j} + \beta ~ p(N_b)_{i,j}.
+            \end{equation}
+                
+            $\alpha$ and $\beta$ ($\alpha+\beta = 1$) is used to weight the effect of weather condition 
+            and neighborhood respectively. $F_{12}$ is a random value between $0$ and $1$.
+              
+          \item Function $f_{23}$: represents the probability that a cell ends up burning and is defined 
+            as random value between $0$ and $1$.
+          \item Function $f_{24}$: represents the probability that a cell is extinguished and is defined 
+            as random value between $0$ and $1$.
+          \item Function $f_{42}$: represents the probability that an extinct cell burns again and is 
+            defined as random value between $0$ and $1$.
+        \end{itemize}
+        
+        $F_{23}, F_{24}, F_{42}$ are threshold parameters defined through try and error with feedback 
+        from experts observing visual outcome representation of wildfire dynamics.
             
     \subsection{Multithreading}
+  
+      Multithreading is a type of execution model that allows multiple threads to exist within the context of a process 
+      such that they execute independently but share their process resources. A thread maintains a list of information 
+      relevant to its execution including the priority schedule, exception handlers, a set of CPU registers, and stack 
+      state in the address space of its hosting process.
+      
+      In this work we used this technique for operating over independents blocks of CA to process faster the computation
+      of future's state of the cells inside each matrix block. The variable $N_{threads}$ defines the number of threads
+      used to improve the results in the algorithm computation.
     
-        Multithreading is a type of execution model that allows multiple threads to exist within the context of a process 
-        such that they execute independently but share their process resources. A thread maintains a list of information 
-        relevant to its execution including the priority schedule, exception handlers, a set of CPU registers, and stack 
-        state in the address space of its hosting process.
-        
-        In this work we used this technique for operating over independents blocks of CA to process faster the computation
-        of future's state of the cells inside each matrix block. The variable $N_{threads}$ defines the number of threads
-        used to get better results in the algorithm computation.
-    
-        %Since we must iterate over the two dimension of CA and the time of the simulation, the com
-        
+
     \subsection{Implementation}
     
-        The development of the algorithm needs to perform a tessellation of the area to be simulated, where each cell represents 
-        the state of a square portion of the terrain. Because different components are integrated in the modeling, it is proposed 
-        to work with a world discretized by layers ($DW$), where each layer contains the information of the components described before,
-        i.e. environmental conditions, fuel, etc. The main portion of the code (Algorithm~\ref{alg:main}) processes the discrete world 
-        states $S^t$ for each time.
+      The development of the model needs to perform a tessellation of the area to be simulated, where each 
+      cell represents the state of a square portion of the terrain. Because different components are integrated 
+      in the modeling, it is proposed to work with a world discretized by layers ($DW$ - 
+      Figure~\ref{fig:discrete_world}), where each layer contains the information of the components described 
+      before, i.e. environmental conditions, fuel, etc. 
+
+      \begin{figure}[!ht]
+        \centering
+        \resizebox{\columnwidth}{!}{
+          \input{figures/discrete_world.tex}
+        }            
+        \caption{Discrete world ($DW$)}
+        \label{fig:discrete_world}
+      \end{figure}
+
+      The main portion of the code (Algorithm~\ref{alg:main}) processes the discrete world 
+      states $S^t$ for each time.
+      
+      \begin{algorithm}[!ht]
+        \begin{algorithmic}
+          \State{$S^0 \gets $ Initialize cell's states.}
+          \State{$DW \gets $ Initialize discrete world.}
+          \For{$t=0$ to $T_{max}$}
+            \State{$S^{t+1} \gets spreading(S^t, DW)$}
+          \EndFor
+        \end{algorithmic}
+        \caption{Main Algorithm}
+        \label{alg:main}
+      \end{algorithm}
+      
+      For the computation of one step of time we need to call the function \emph{Spreading} where we made 
+      the matrix partition for \emph{thread} implementation (Algorithm~\ref{alg:spreading}).
+      
+      \begin{algorithm}[!ht]
+        \begin{algorithmic}
+          \Procedure{spreading}{$S^t, DW$}
+            \State{$N \gets$ number of rows in $DW$.}
+            \For{$i=0$ to $N_{threads}-1$}
+              \State{$delta \gets N / N_{threads}$}
+              \State{$start \gets i\cdot delta$}
+              \If{$i = N_{threads}-1$}
+                \State{$end \gets$ number of rows in $DW$.}
+              \Else
+                \State{$end \gets (i+1)\cdot delta$}
+              \EndIf
+              \State{$S_{start:end, \cdot} \gets subSpreading(start, end, S^t, DW)$}
+            \EndFor
+            \For{$i=0$ to $N_{threads}-1$}
+              \State{Thread's join.}
+            \EndFor
+            \State{\textbf{return} $S$}
+          \EndProcedure
+        \end{algorithmic}
+        \caption{Spreading Algorithm}
+        \label{alg:spreading}
+      \end{algorithm}
+      
+      Finally, we use Algorithm~\ref{alg:subspreading} to apply the transition function.
+      
+      \begin{algorithm}[!ht]
+        \begin{algorithmic}
+          \Procedure{subSpreading}{$start, end, S^t, DW$} 
+            \State{$N \gets$ number of columns in $DW$.}
+            \For{$i=start$ to  $end$}
+              \For{$j=0$ to $N$}
+                \State{Compute $S_{i,j}^t$ using equation (\ref{eq:transition_rule}) with $S^t$ and $DW$.}
+              \EndFor
+            \EndFor
+            \State{\textbf{return} $S_{start:end, \cdot}^t$}
+          \EndProcedure
+        \end{algorithmic}
+        \caption{Sub-spreading Algorithm}
+        \label{alg:subspreading}
+      \end{algorithm}
+      
+      In \emph{SubSpreading} we compute the independent pieces of matrix using a \emph{Thread} for each 
+      matrix block defined in \emph{Spreading}. A simple sketch summarizing the last algorithm is shown 
+      in Figure~\ref{fig:thread}. 
+      \begin{figure}
+        \centering
+        \resizebox{\columnwidth}{!}{
+          \input{figures/thread_model.tex}
+        }    
+        \caption{\emph{SubSpreading} computing a matrix block.}
+        \label{fig:thread}
+      \end{figure}
         
-        \begin{algorithm}[!ht]
-            \begin{algorithmic}
-                \State{$S^0 \gets $ Initialize cell's states.}
-                \State{$DW \gets $ Initialize discrete world.}
-                \For{$t=0$ to $T_{max}$}
-                    \State{$S^{t+1} \gets spreading(S^t, DW)$}
-                \EndFor
-            \end{algorithmic}
-            \caption{Main Algorithm}
-            \label{alg:main}
-        \end{algorithm}
         
-        For the computation of one step of time we need to call the function \emph{Spreading} where we made the matrix partition
-        for \emph{thread} implementation (Algorithm~\ref{alg:spreading}).
-        
-        \begin{algorithm}[!ht]
-            \begin{algorithmic}
-                \Procedure{spreading}{$S^t, DW$}
-                    \State{$N \gets$ number of rows in $DW$.}
-                    \For{$i=0$ to $N_{threads}-1$}
-                        \State{$delta \gets N / N_{threads}$}
-                        \State{$start \gets i\cdot delta$}
-                        \If{$i = N_{threads}-1$}
-                            \State{$end \gets$ number of rows in $DW$.}
-                        \Else
-                            \State{$end \gets (i+1)\cdot delta$}
-                        \EndIf
-                        \State{$S \gets subSpreading(start, end, S^t, DW)$}
-                    \EndFor
-                    \For{$i=0$ to $N_{threads}-1$}
-                        \State{Thread's join.}
-                    \EndFor
-                    \State{\textbf{return} $S$}
-                \EndProcedure
-            \end{algorithmic}
-            \caption{Spreading Algorithm}
-            \label{alg:spreading}
-        \end{algorithm}
-        
-        Finally, we use Algorithm~\ref{alg:subspreading} to apply the transition function.
-        
-        \begin{algorithm}[!ht]
-            \begin{algorithmic}
-                \Procedure{subSpreading}{$start, end, S^t, DW$} 
-                    \State{$N \gets$ number of columns in $DW$.}
-                    \For{$i=start$ to  $end$}
-                        \For{$j=0$ to $N$}
-                            \State{Compute $S_{i,j}^t$ using equation (\ref{eq:transition_rule}) with $S^t$ and $DW$.}
-                        \EndFor
-                    \EndFor
-                    \State{\textbf{return} $S_{i,j}^t$}
-                \EndProcedure
-            \end{algorithmic}
-            \caption{Sub-spreading Algorithm}
-            \label{alg:subspreading}
-        \end{algorithm}
-        
-        In \emph{SubSpreading} we compute the independent pieces of matrix using a \emph{Thread} for each matrix block.
-        A simple sketch summarizing the last algorithm is shown in Figure~\ref{fig:thread}. 
-        \begin{figure}
-            \centering
-            %\includegraphics{}
-            \resizebox{\columnwidth}{!}{
-                \input{figures/thread_model.tex}
-            }    
-            \caption{\emph{SubSpreading} computing a matrix block.}
-            \label{fig:thread}
-        \end{figure}
-        
-        
-\section{Evaluation}
+  \section{Evaluation}
     
     In this section we present some simulations to compare the performance of our proposal model.
     We assume the use of a square grid of size $N \times N$ and, defining the maximum number
-    of discrete times $T_{max}$ we estimate a computational complexity of $O(T_{max}\cdot N^2)$. 
+    of discrete times $T_{max}$ we estimate a computational complexity of $O(T_{max} ~ N^2)$. 
     
     It is important to mention that in the case we choose $T_{max} << N$ the complexity is about $O(N^2)$,
     but it may change a lot if $T_{max}\sim N$ increasing the complexity to $O(N^3)$. This is the main 
@@ -960,66 +956,65 @@
     simulations $10$ times per $N$. The average of these repetitions are summarized in Table~\ref{tab:results}.
     
     \begin{table}[!ht]
-        \renewcommand{\arraystretch}{1.3}
-        \centering
-        \caption{Summary of the average times in seconds.}
-        \label{tab:results}
-        \begin{tabular}{c||rrrr}
-            \hline
-            Threads & $N=100$ & $N=500$ & $N=1000$ & $N=1500$ \\ \hline\hline
-            1       & $0.198$   & $8.023$   & $32.861$   & $72.464$   \\
-            2       & $0.135$   & $5.147$   & $19.695$   & $44.407$   \\
-            3       & $0.163$   & $4.825$   & $18.852$   & $41.626$   \\
-            4       & $0.220$   & $4.650$   & $18.055$   & $41.458$  
-        \end{tabular}
+      \renewcommand{\arraystretch}{1.3}
+      \centering
+      \caption{Summary of the average times in seconds.}
+      \label{tab:results}
+      \begin{tabular}{c||rrrr}
+        \hline
+        Threads & $N=100$ & $N=500$ & $N=1000$ & $N=1500$ \\ \hline\hline
+        1       & $0.198$   & $8.023$   & $32.861$   & $72.464$   \\
+        2       & $0.135$   & $5.147$   & $19.695$   & $44.407$   \\
+        3       & $0.163$   & $4.825$   & $18.852$   & $41.626$   \\
+        4       & $0.220$   & $4.650$   & $18.055$   & $41.458$  
+      \end{tabular}
     \end{table}
 
     To show a better representation of results and compare to the theoretical complexity estimated, we 
     present the Figure~\ref{fig:benchmark}.
     
     \begin{figure}[!ht]
-        \centering
-        \includegraphics[width=3in,height=3in,clip,keepaspectratio]{figures/benchmark.pdf}
-        \caption{Threads' performance comparison}
-        \label{fig:benchmark}
+      \centering
+      \includegraphics[width=3in,height=3in,clip,keepaspectratio]{figures/benchmark.pdf}
+      \caption{Threads' performance comparison}
+      \label{fig:benchmark}
     \end{figure}
     
     We note that the curves approximate the estimated complexity. In addition we can appreciate the impact of 
     the parallel implementation in the computation time of the simulations. Computing the Speedup $S$ as
     \begin{equation}
-        S = \frac{Time_{sequential}}{Time_{parallel}},
+      S = \frac{Time_{sequential}}{Time_{parallel}},
     \end{equation}
     
     we resume the \emph{Speedup} results in Table~\ref{tab:speedups}.
     
     \begin{table}[!ht]
-        \renewcommand{\arraystretch}{1.3}
-        \centering
-        \caption{Speedups results.}
-        \label{tab:speedups}
-        \begin{tabular}{c||rrrr}
-            \hline
-            Threads & $N=100$ & $N=500$ & $N=1000$ & $N=1500$ \\ \hline\hline
-            2       & $1.47$ & $1.56$ & $1.67$ & $1.63$ \\
-            3       & $1.21$ & $1.66$ & $1.74$ & $1.74$ \\
-            4       & $0.90$ & $1.73$ & $1.82$ & $1.75$  
-        \end{tabular}
+      \renewcommand{\arraystretch}{1.3}
+      \centering
+      \caption{Speedups results.}
+      \label{tab:speedups}
+      \begin{tabular}{c||rrrr}
+        \hline
+        Threads & $N=100$ & $N=500$ & $N=1000$ & $N=1500$ \\ \hline\hline
+        2       & $1.47$ & $1.56$ & $1.67$ & $1.63$ \\
+        3       & $1.21$ & $1.66$ & $1.74$ & $1.74$ \\
+        4       & $0.90$ & $1.73$ & $1.82$ & $1.75$  
+      \end{tabular}
     \end{table}
-    
     
     For a qualitative evaluation Figure~\ref{fig:simulation} shows a piece of map simulated for 
     $N=1500$, $T=30^{\circ}$C, $H=50$\%, $W_s=40$ km/hr, $W_d=90^{\circ}$, $P=50$ hPa, 
     $F_{23} = F_{24}= F_{42} = 0.1$.
     
     \begin{figure}[!ht]
-        \centering
-        \includegraphics[width=3in,height=3in,clip,keepaspectratio]{figures/simulation_gray.png}
-        \caption{Simulation's qualitative result.}
-        \label{fig:simulation}
+      \centering
+      \includegraphics[width=3in,height=3in,clip,keepaspectratio]{figures/simulation_gray.png}
+      \caption{Simulation qualitative result.}
+      \label{fig:simulation}
     \end{figure}
     
 
-\section{Validation/Discussion}
+  \section{Validation/Discussion}
     
     According to \cite{preisler2013forest} fire models can be grouped into three types: risk models, 
     propagation and effect. The first ones are associated to quantify the probability and potential effects before
@@ -1038,7 +1033,7 @@
     
     As mentioned in the introduction, modeling with differential equations is one of the most used approaches. 
     The main problem with wildfire models based on this approach is the computational cost associated with the 
-    resolution of the equations. For example, the reaction-convection-diffusion equation \cite{liu2009elementary} is 
+    resolution of the componentes in equations. For example, the reaction-convection-diffusion equation \cite{liu2009elementary} is 
     a mathematical model that models temperature and involves the effect of a flow and the reaction rate of 
     chemicals interpreted as fuel. One of the most used numerical methods to solve diffusion equations is the 
     Crank-Nicolson method, which is known to have computational cost problems when solving the problem in two 
@@ -1049,7 +1044,7 @@
     equations since the increment of complexity unlike the model proposed by us for example in the modification
     of environmental conditions that only implies to set values in the matrices of the discrete world. \medskip
     
-    The wildfire dynamics generated with the prototypes are consistent with what CONAF has observed in past 
+    The wildfire dynamics generated with the prototypes developed are consistent with what CONAF has observed in past 
     devastating wildfires occurring in Chile. Nevertheless, the effort so far has focused in creating a 
     framework to include the core of modelling found in related work and mainly the expert’s knowledge and 
     expertise through manipulation of quantitative and qualitative variables affecting the dynamics.  
@@ -1059,10 +1054,11 @@
     in this version of the model, more elaborate local level rules for the interplay among these variables will 
     be explore in a future version of the wildfire dynamics model. 
 
-\section{Conclusion}
+
+  \section{Conclusion}
     
     This article describes a qualitative approach to calibrate and generate a suitable model for realistic 
-    wildfire dynamics for three high priority protection rural location for the Chilean forest fire agency. 
+    wildfire dynamics. 
     This modelling effort is based on discrete simulation using a Cellular Automata to simulate fire spreading, 
     which is easy to manipulate at both quantitative low level and qualitative high level. As expected, the system’s 
     dynamics emerging from cell’s switching rules involving environmental, topographic, and fuel components, as well 
@@ -1070,7 +1066,7 @@
     and error approach to achieve suitable and realistic wildfire dynamics. 
     
     The incorporation of parallel techniques allows the model to compute enough states in discrete times to show 
-    a qualitatively realistic result for the specialists' requirements. The decrease in computing time allows 
+    a qualitatively realistic result for the specialists requirements. The decrease in computing time allows 
     us to conclude that the use of multithreads is a good strategy to apply to this problem, given the characteristics 
     of the discrete world and the independence of states between the times $t$ and $t + 1$.
 
@@ -1088,7 +1084,7 @@
     would be using the simulator, from which the model presented in this article is part of.
     
     
-\section{Future Work}
+  \section{Future Work}
     
     Future work will seek to deliver more solid components, or finer granularity in some cases, for the core 
     characteristics of the wildfire dynamics, such as the topographic and fuel components. \medskip
@@ -1172,9 +1168,9 @@
 %\begin{biography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
 % or if you just want to reserve a space for a photo:
 
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{picture}}]{John Doe}
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{picture}}]{John Doe}
 %\blindtext
-\end{IEEEbiography}
+%\end{IEEEbiography}
 
 % You can push biographies down or up by placing
 % a \vfill before or after them. The appropriate

@@ -72,10 +72,9 @@
 
       \begin{frame}{Introduction}
         \begin{itemize}
-          \item<1-> Around $50000$ hectares are burnt yearly, and in certain occasions up to $100000$ 
-              hectares \cite{fireCONAF}.
-          \item<2-> Fire spreading dynamics has gathered large attention from the scientific community.
-          \item<3-> Wildfires are modelled using continuous or discrete models, or a combination of both.
+          \item<1-> Fires consume between 50000 and 100000 hectares \cite{fireCONAF}.
+          \item<2-> Fire spreading dynamics becomes an interesting research area both for scientific community and governments.
+          \item<3-> Wildfires dynamics can be modelled using continuous and discrete models or mixture of them \cite{bianchini2015evolutionary}.
         \end{itemize}
           \begin{figure}
           \centering
@@ -96,9 +95,10 @@
       
       \begin{frame}{Formalization}
         \begin{block}{Problem}
-          Build a suitable model to be incorporated into a video-game-based 
-          simulator to allow assessment of decision making during wildfire combat 
-          involving different agencies which are part of the response system in Chile.
+          The integration of factors involved on wildfires is costly computationally.
+          %The difficulty of integrating the different factors involved in the wildfire's propagation 
+          %on a model embedded in a simulation system that would be used to train in decision making 
+          %to control this phenomenon.
         \end{block}
       \end{frame}
       
@@ -106,23 +106,34 @@
     \subsection{Solution}
 
       \begin{frame}{Solution}
+        \begin{block}{Solution}
+          Construct a simulation model based on Cellular Automata which it allows
+          decomposing the computations in order to map tasks to threads.
+          %Build a suitable model to be incorporated into a video-game-based 
+          %simulator to allow assessment of decision making during wildfire combat 
+          %involving different agencies which are part of the response system in Chile.
+        \end{block}
+      \end{frame}
+
+      \begin{frame}{Solution}
         \begin{itemize}
-          \item<1-> The fire model was constructed integrating environmental factors, forest 
-            fuel, topography with a discrete model based in Cellular Automata (CA) which interact 
-            and evolve in discrete time steps.
-          \item<2-> To include the dynamic component, it was necessary to enhance 
-            the computation of the model with parallel computing techniques.
+          \item<1-> The fire model integrates weather factors, forest fuel and topography. %with a discrete model based in Cellular Automata (CA) which interact 
+            %and evolve in discrete time steps.
+          \item<2-> A parallel computing approach is introduced to reduce the execution time (more realistic simulations).
+
+          %\item<2-> To include the dynamic component, it was necessary to enhance 
+          %  the computation of the model with parallel computing techniques.
         \end{itemize}
       \end{frame}
       
       \begin{frame}{Solution}
         \begin{itemize}
-          \item<1-> \textbf{Environmental factors}
+          \item<1-> \textbf{Weather elemets over fire spreading}
             \begin{itemize}
-              \item<1-> Wind's speed and direction have a direct effect over fire spreading.
-              \item<2-> Temperature has a direct effect over fire spreading.
-              \item<3-> Relative humidity has an inversely effect over fire spreading.
-              \item<4-> Pressure has an inversely effect over fire spreading.
+              \item<1-> Wind speed and direction have a direct effect.
+              \item<2-> Temperature has a direct effect.
+              \item<3-> Relative humidity has an inversely effect.
+              \item<4-> Pressure has an inversely effect.
             \end{itemize}
           \item<5-> \textbf{Forest fuels}: All the vegetation elements, woody or herbaceous, 
             alive or dead that may be flammable.
@@ -136,10 +147,10 @@
           \item<1-> \textbf{Cellular Automata}
             \begin{itemize}
               \item<2-> Spatial Dimension: We used a 2D spatial dimension based on a grid of size $M\times N$.
-                Each cell is located over the grid in positions $(i,j)$.
+                Each cell is located over the grid in positions $(i,j)$ \cite{wolfram1994cellular}.
               \item<3-> Neighborhood: This CA model use the Moore Neighborhood, defined as
                 \begin{equation}
-                  N_{(i_0,j_0)}^M = \{(i,j): ~ |i-i_0|\leq r, ~ |j-j_0|\leq r \}.
+                  N_{(i_0,j_0)}^M = \{(i,j): ~ |i-i_0|\leq r, ~ |j-j_0|\leq r \},
                 \end{equation}
                 for a cell $(i_0, j_0)$ in a radius $r=1$.
               \item<4-> Cell States: In this work we use $S_{i,j}\in \{0, 1, 2, 3, 4\}$ where nonflammable = $0$; 
@@ -210,6 +221,7 @@
             to be simulated, where each cell represents the state of a square portion of the terrain. 
           \item<2-> The model works with a world discretized by layers ($DW$), where each layer contains 
             the information of the components described before.
+          \item<3-> Model evolves in discrete times.
         \end{itemize}
       \end{frame}
       
@@ -242,7 +254,7 @@
                 \Else
                     \State{$end \gets (i+1)\cdot delta$}
                 \EndIf
-                \State{$S \gets subSpreading(start, end, S^t, DW)$}
+                \State{$S_{start:end,\cdot} \gets subSpreading(start, end, S^t, DW)$}
               \EndFor
               \For{$i=0$ to $N_{threads}-1$}
                 \State{Thread's join}
@@ -265,7 +277,7 @@
                   \State{Compute $S_{i,j}^t$ using equation (\ref{eq:transition_rule}) with $S^t$ and $DW$.}
                 \EndFor
               \EndFor
-              \State{\textbf{return} $S_{i,j}^t$}
+              \State{\textbf{return} $S_{start:end,\cdot}^t$}
             \EndProcedure
           \end{algorithmic}
           \caption{Sub-spreading Algorithm}
@@ -293,7 +305,7 @@
             of discrete times $T_{max}$ we estimate a computational complexity of $O(T_{max}\cdot N^2)$. 
           \item<2-> If we choose $T_{max} << N$ the complexity is about $O(N^2)$, but it 
             may change a lot if $T_{max}\sim N$ increasing the complexity to $O(N^3)$. 
-          \item<3-> This is the main  motivation of to include the use of threads in the computing of the model.
+          \item<3-> This is the main motivation for including threads in the computing of the model.
         \end{itemize} 
       \end{frame}
       
@@ -320,7 +332,7 @@
         \begin{figure}[!ht]
           \centering
           \includegraphics[width=3in,height=3in,clip,keepaspectratio]{figures/benchmark.pdf}
-          \caption{Threads' performance comparison.}
+          \caption{Threads performance comparison.}
           \label{fig:benchmark}
         \end{figure}
       \end{frame}
@@ -345,8 +357,8 @@
         \begin{figure}[!ht]
           \centering
           \includegraphics[width=3in,height=3in,clip,keepaspectratio]{figures/simulation_gray.png}
-          \caption{piece of map simulated for $N=1500$, $T=30^{\circ}$C, $H=50$\%, 
-              $W_s=40$ km/hr, $W_d=90^{\circ}$, $P=50$ hPa, $F_{23} = F_{24}= F_{42} = 0.1$..}
+          \caption{A portion of map simulated for $N=1500$, $T=30^{\circ}$C, $H=50$\%, 
+              $W_s=40$ km/hr, $W_d=90^{\circ}$, $P=50$ hPa, $F_{23} = F_{24}= F_{42} = 0.1$.}
           \label{fig:simulation}
         \end{figure}
       \end{frame}
@@ -356,34 +368,44 @@
           \begin{itemize}
             \item<1-> There are different fire propagation models, but each one depends on the 
               conditions of each study place.
-            \item<2-> The wildfire dynamics generated with the prototypes are consistent with what 
-              CONAF has observed in past devastating wildfires occurring in Chile.
-            \item<3-> The main problem with wildfire models based on differential equations is the 
-              computational cost associated with the resolution of the system of equations.
-            \item<4-> The complexity of the models is related to the realism and dynamism they have.
+            \item<2-> The wildfire dynamics generated with the prototypes are consistent respect to the past events reported by CONAF.%what 
+              %CONAF has observed in past devastating wildfires occurring in Chile.
+            %\item<3-> The main problem with wildfire models based on differential equations is the 
+            %  computational cost associated with the resolution of the system of equations.
+            %\item<4-> The complexity of the models is related to the integration threalism and dynamism %they have.
+            \item<3-> The complexity of the model exhibits a direct relationship between realism the 
+             amount fire factors. 
           \end{itemize}
         \end{frame}
       
       \subsection{Conclusion}
         \begin{frame}{Conclusion}
           \begin{itemize}
-            \item<1-> The incorporation of parallel techniques allows the model to compute enough 
-              states in discrete times to show a qualitatively realistic result for the specialists' requirements.
-            \item<2-> The use of multithreads is a good strategy to apply to this problem given 
-              the characteristics of the discrete world and the independence of states between the 
-              times $t$ and $t + 1$.
-            \item<3-> Model complexity is smaller in comparison to the classical methods based on differential 
-              equations.
+            %\item<1-> The incorporation of parallel techniques allows the model to compute enough 
+            %  states in discrete times to show a qualitatively realistic result for the specialists' requirements.
+            \item<1-> The parallel processing allows increasing the amount fire factors, therefore
+              increases the realism of the simulation scenarios.
+            %\item<2-> The use of multithreads is a good strategy to apply to this problem given 
+            %  the characteristics of the discrete world and the independence of states between the 
+            %  times $t$ and $t + 1$.
+            \item<2-> According to model features, assign tasks to threads is an effective approach for reducing the execution time.
+            %\item<3-> Model complexity is smaller in comparison to the classical methods based on differential 
+            %  equations.
+            \item<3-> Respect to the EDP-based models, the Cellular Automata exhibits a favorable trade-off between the fire factors and the model complexity.
           \end{itemize}
         \end{frame}
       
       \subsection{Future Work}
       \begin{frame}{Future Work}
         \begin{itemize}
-          \item<1-> Work with more solid components, or finer granularity in some cases, for the core 
-            characteristics of the wildfire dynamics, such as the topographic and fuel components.
-          \item<2-> Use a parallel architecture of the pipeline type, taking advantage of the refresh 
-            rate in the interface of the simulator.
+          \item<1-> Increase the resolution of the simulated area in order to improve the model approximation.
+          %\item<1-> Work with more solid components, or finer granularity in some cases, for the core 
+          %  characteristics of the wildfire dynamics, such as the topographic and fuel components.
+          %\item<2-> Use a parallel architecture of the pipeline type, taking advantage of the refresh 
+          %  rate in the interface of the simulator.
+          %\item<2-> Implement a parallel approach based on pipeline, taking advantage of the block 
+          \item<2-> In order to take advantage of computation of several contiguous CA states, implementing
+            a parallel approach based on pipeline.
         \end{itemize}
       \end{frame}
       
