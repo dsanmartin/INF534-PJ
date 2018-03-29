@@ -301,10 +301,13 @@
       
       \begin{frame}{Evaluation}
         \begin{itemize}
-          \item<1-> Using a square grid of size $N \times N$ and defining the maximum number
-            of discrete times $T_{max}$ we estimate a computational complexity of $O(T_{max}\cdot N^2)$. 
-          \item<2-> If we choose $T_{max} << N$ the complexity is about $O(N^2)$, but it 
-            may change a lot if $T_{max}\sim N$ increasing the complexity to $O(N^3)$. 
+          \item<1-> Using a square grid of size $N \times N$ we estimate a computational complexity 
+            of $O(N^2)$ for our model. 
+          %\item<1-> Using a square grid of size $N \times N$ and defining the maximum number
+          %  of discrete times $T_{max}$ we estimate a computational complexity of $O(T_{max}\cdot N^2)$. 
+          %\item<2-> If we choose $T_{max} << N$ the complexity is about $O(N^2)$, but it 
+          %  may change a lot if $T_{max}\sim N$ increasing the complexity to $O(N^3)$. 
+          \item<2-> Better resolution of the simulation implies larger values of $N$.
           \item<3-> This is the main motivation for including threads in the computing of the model.
         \end{itemize} 
       \end{frame}
@@ -409,7 +412,7 @@
         \end{itemize}
       \end{frame}
       
-  \begin{frame}[allowframebreaks]{References}
+  \begin{frame}{References}
     \bibliographystyle{newapa}
     \bibliography{IEEEreferences}
   \end{frame}

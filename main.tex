@@ -378,7 +378,7 @@
   \author{
     \IEEEauthorblockN{Daniel San Martín}
     \IEEEauthorblockA{Departamento de Informática\\
-    Universidad Técnica Federico Santa María, \\ Valparaíso, Chile\\ daniel.sanmartinr@usm.cl}
+    Universidad Técnica Federico Santa María, \\ Valparaíso, Chile\\ daniel.sanmartinr@sansano.usm.cl}
     \and
     \IEEEauthorblockN{Roberto G. Aldunate}
     \IEEEauthorblockA{College of Applied Health Sciences\\
@@ -549,7 +549,7 @@
     While there is significant consensus on modelling core components of wildfire propagation models, such as 
     terrain characteristics, fuel type, meteorological conditions, statistical past patterns, the dynamic interaction 
     between temperature, humidity, pressure, and wind characteristics are usually an elusive component in most 
-    modelling efforts. 
+    modelling efforts. \medskip
     
     The goal for this research initiative is to build a suitable model to be incorporated into a video-game-based 
     simulator to allow assessment of decision making during wildfire combat involving different agencies which are 
@@ -680,13 +680,14 @@
     For the development of the simulator, the fire model was constructed using 
     environmental factors, forest fuel, topography and the cellular automata which interact and evolve in 
     discrete time steps. Then, to include the dynamic component, it was necessary decomposing 
-    the computations in order to map tasks to threads. The elements involves in the
+    the computations in order to map tasks to threads, this means that we have to use parallel 
+    programming techniques for time optimization. The elements involves in the
     development of the simulator are described in detail below.
 
     
     \subsection{Weather}
         
-      The weather elements are closely related with the fire propagation. The wind guides the fire’s direction, 
+      The weather elements are closely related with the fire propagation. The wind guides the fire direction, 
       brings oxygen, and increases the speed of fire propagation, dried fuel and transports sparks. Temperature 
       evaporates the humidity from fuels, increasing the chances of to burn. If the relative humidity is low, the 
       fuel is drier than the reverse case, it is therefore more flammable. There is not vertical movement of air 
@@ -801,11 +802,11 @@
             \begin{itemize}
               \item The environmental factors $E$ a matrix with values:
                 \begin{equation}
-                  E_{i,j} = \frac{a ~ C_{i,j} ~ T_{i,j} ~ Ws_{i,j}}{H_{i,j} ~ P_{i,j}},
+                  E_{i,j} = \frac{a_{i,j} ~ C_{i,j} ~ T_{i,j} ~ Ws_{i,j}}{H_{i,j} ~ P_{i,j}},
                 \end{equation}
-                where $a$ is a factor that depends of wind direction. This factor is computed by
+                where $a_{i,j}$ is a factor that depends of wind direction. This factor is computed by
                 \begin{equation}
-                  a = 
+                  a_{i,j} = 
                   \begin{cases}
                     1 & \text{if cell in the same direction} \\
                      & \text{of $Wd_{i,j}$ is burning.}\\
@@ -848,7 +849,7 @@
       state in the address space of its hosting process.
       
       In this work we used this technique for operating over independents blocks of CA to process faster the computation
-      of future's state of the cells inside each matrix block. The variable $N_{threads}$ defines the number of threads
+      of future state of the cells inside each matrix block. The variable $N_{threads}$ defines the number of threads
       used to improve the results in the algorithm computation.
     
 
@@ -862,7 +863,7 @@
 
       \begin{figure}[!ht]
         \centering
-        \resizebox{\columnwidth}{!}{
+        \resizebox{0.5\columnwidth}{!}{
           \input{figures/discrete_world.tex}
         }            
         \caption{Discrete world ($DW$)}
@@ -872,7 +873,8 @@
       The main portion of the code (Algorithm~\ref{alg:main}) processes the discrete world 
       states $S^t$ for each time.
       
-      \begin{algorithm}[!ht]
+      \begin{algorithm}[h]
+        \small
         \begin{algorithmic}
           \State{$S^0 \gets $ Initialize cell's states.}
           \State{$DW \gets $ Initialize discrete world.}
@@ -887,7 +889,8 @@
       For the computation of one step of time we need to call the function \emph{Spreading} where we made 
       the matrix partition for \emph{thread} implementation (Algorithm~\ref{alg:spreading}).
       
-      \begin{algorithm}[!ht]
+      \begin{algorithm}[h]
+        \small
         \begin{algorithmic}
           \Procedure{spreading}{$S^t, DW$}
             \State{$N \gets$ number of rows in $DW$.}
@@ -899,10 +902,12 @@
               \Else
                 \State{$end \gets (i+1)\cdot delta$}
               \EndIf
+              \State{Create Thread[$i$]}
+              \State{Execute this portion of code in Thread[$i$]}
               \State{$S_{start:end, \cdot} \gets subSpreading(start, end, S^t, DW)$}
             \EndFor
             \For{$i=0$ to $N_{threads}-1$}
-              \State{Thread's join.}
+              \State{Thread[$i$] join.}
             \EndFor
             \State{\textbf{return} $S$}
           \EndProcedure
@@ -913,7 +918,8 @@
       
       Finally, we use Algorithm~\ref{alg:subspreading} to apply the transition function.
       
-      \begin{algorithm}[!ht]
+      \begin{algorithm}[h]
+        \small
         \begin{algorithmic}
           \Procedure{subSpreading}{$start, end, S^t, DW$} 
             \State{$N \gets$ number of columns in $DW$.}
@@ -932,7 +938,7 @@
       In \emph{SubSpreading} we compute the independent pieces of matrix using a \emph{Thread} for each 
       matrix block defined in \emph{Spreading}. A simple sketch summarizing the last algorithm is shown 
       in Figure~\ref{fig:thread}. 
-      \begin{figure}
+      \begin{figure}[!ht]
         \centering
         \resizebox{\columnwidth}{!}{
           \input{figures/thread_model.tex}
@@ -945,17 +951,20 @@
   \section{Evaluation}
     
     In this section we present some simulations to compare the performance of our proposal model.
-    We assume the use of a square grid of size $N \times N$ and, defining the maximum number
-    of discrete times $T_{max}$ we estimate a computational complexity of $O(T_{max} ~ N^2)$. 
-    
-    It is important to mention that in the case we choose $T_{max} << N$ the complexity is about $O(N^2)$,
-    but it may change a lot if $T_{max}\sim N$ increasing the complexity to $O(N^3)$. This is the main 
-    motivation of to include the use of threads in the computing of the model.
+    We assume the use of a square grid of size $N \times N$, therefore the computational complexity estimated
+    for our model is about $O(N^2)$. In the time domain, we define $T_{max}$ as the maximum number
+    of discrete times used for the simulation. %To achieve a realistic simulation, $N=1500$ give us 
+    %We assume the use of a square grid of size $N \times N$ and, defining the maximum number
+    %of discrete times $T_{max}$ we estimate a computational complexity of $O(N^2)$. 
+
+    %It is important to mention that in the case we choose $T_{max} << N$ the complexity is about $O(N^2)$,
+    %but it may change a lot if $T_{max}\sim N$ increasing the complexity to $O(N^3)$. This is the main 
+    %motivation of to include the use of threads in the computing of the model.
     
     The experiments were made using a fixed $T_{max}=50$, for $1$ to $4$ number of threads, repeating the 
     simulations $10$ times per $N$. The average of these repetitions are summarized in Table~\ref{tab:results}.
     
-    \begin{table}[!ht]
+    \begin{table}[h]
       \renewcommand{\arraystretch}{1.3}
       \centering
       \caption{Summary of the average times in seconds.}
@@ -966,14 +975,14 @@
         1       & $0.198$   & $8.023$   & $32.861$   & $72.464$   \\
         2       & $0.135$   & $5.147$   & $19.695$   & $44.407$   \\
         3       & $0.163$   & $4.825$   & $18.852$   & $41.626$   \\
-        4       & $0.220$   & $4.650$   & $18.055$   & $41.458$  
+        4       & $0.220$   & $4.650$   & $18.055$   & $41.458$   \\ \hline
       \end{tabular}
     \end{table}
 
     To show a better representation of results and compare to the theoretical complexity estimated, we 
     present the Figure~\ref{fig:benchmark}.
     
-    \begin{figure}[!ht]
+    \begin{figure}[h]
       \centering
       \includegraphics[width=3in,height=3in,clip,keepaspectratio]{figures/benchmark.pdf}
       \caption{Threads' performance comparison}
@@ -988,7 +997,7 @@
     
     we resume the \emph{Speedup} results in Table~\ref{tab:speedups}.
     
-    \begin{table}[!ht]
+    \begin{table}[h]
       \renewcommand{\arraystretch}{1.3}
       \centering
       \caption{Speedups results.}
@@ -998,7 +1007,7 @@
         Threads & $N=100$ & $N=500$ & $N=1000$ & $N=1500$ \\ \hline\hline
         2       & $1.47$ & $1.56$ & $1.67$ & $1.63$ \\
         3       & $1.21$ & $1.66$ & $1.74$ & $1.74$ \\
-        4       & $0.90$ & $1.73$ & $1.82$ & $1.75$  
+        4       & $0.90$ & $1.73$ & $1.82$ & $1.75$ \\ \hline
       \end{tabular}
     \end{table}
     
@@ -1006,10 +1015,10 @@
     $N=1500$, $T=30^{\circ}$C, $H=50$\%, $W_s=40$ km/hr, $W_d=90^{\circ}$, $P=50$ hPa, 
     $F_{23} = F_{24}= F_{42} = 0.1$.
     
-    \begin{figure}[!ht]
+    \begin{figure}[h]
       \centering
       \includegraphics[width=3in,height=3in,clip,keepaspectratio]{figures/simulation_gray.png}
-      \caption{Simulation qualitative result.}
+      \caption{A qualitative result of simulation.}
       \label{fig:simulation}
     \end{figure}
     
@@ -1029,7 +1038,7 @@
     tools associated with this type of models and can be reviewed in \cite{andrews1986behave, finney2006overview,
     finney1998farsite, finney2011simulation, finney2011method}. Finally, the effect models are important
     to study the administration and management of fuels, for example the control of tree mortality
-    or analysis of ecosystems, among others \cite{Larkin-2009, reinhardt2003using, robichaud2007predicting}. \medskip
+    or analysis of ecosystems, among others \cite{Larkin-2009, reinhardt2003using, robichaud2007predicting}. %\medskip
     
     As mentioned in the introduction, modeling with differential equations is one of the most used approaches. 
     The main problem with wildfire models based on this approach is the computational cost associated with the 
@@ -1042,7 +1051,7 @@
     equations, a problem that does not have a general solution \cite{fefferman2006existence}, so it can usually 
     only be approximated with a high computational cost. The dynamic implementation is a problem for differential
     equations since the increment of complexity unlike the model proposed by us for example in the modification
-    of environmental conditions that only implies to set values in the matrices of the discrete world. \medskip
+    of environmental conditions that only implies to set values in the matrices of the discrete world. %\medskip
     
     The wildfire dynamics generated with the prototypes developed are consistent with what CONAF has observed in past 
     devastating wildfires occurring in Chile. Nevertheless, the effort so far has focused in creating a 
